@@ -1,0 +1,3 @@
+[submodule "MathMatrix"]
+	path = MathMatrix
+	url = git@github.com:vadim8960/MathMatrix.git
