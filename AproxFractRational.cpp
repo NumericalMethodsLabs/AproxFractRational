@@ -30,14 +30,14 @@ double AproxFractRational::CalcInPoint(double p, std::vector<double> coef) {
            numer = 0,
            denumer = 0;
 
-    for ( ; i < _deg_k; ++i) {
+    for ( ; i <= _deg_k; ++i) {
         numer += (coef[i] * tmp_deg);
         tmp_deg *= p;
     }
 
     tmp_deg = 1;
-    for ( ; i <= _x.size(); ++i) {
-        numer += (coef[i] * tmp_deg);
+    for ( ; i <= _deg_k + _deg_l + 1; ++i) {
+        denumer += (coef[i] * tmp_deg);
         tmp_deg *= p;
     }
 
@@ -53,7 +53,7 @@ std::valarray<double> AproxFractRational::CalcInPoints(std::valarray<double> p) 
 
     return retv;
 }
-#include <iostream>
+
 std::vector<double> AproxFractRational::_calc_coefs() {
     Matrix m(_x.size());
     Matrix vec(_x.size(), 1U);
@@ -72,14 +72,16 @@ std::vector<double> AproxFractRational::_calc_coefs() {
         }
         vec[i][0] = -1;
     }
-    std::cout << m << std::endl;
-    std::cout << vec << std::endl;
-    std::cout << m.concatenation(vec) << std::endl;
     m = make_identity_matrix(m.concatenation(vec));
-    std::cout << m << std::endl;
-    auto retv_vec = new double[_x.size()];
-    m.get_col(0, retv_vec);
+
+    auto retv_vec = new double[m.count_col()];
+    m.get_col(m.count_col() - 1, retv_vec);
+
     std::vector<double> retv(retv_vec, retv_vec + _x.size());
+
     delete [] retv_vec;
+
+    retv.insert(retv.begin(), 1);
+
     return retv;
 }
