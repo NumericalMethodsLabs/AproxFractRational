@@ -17,8 +17,8 @@ class AproxFractRational {
     std::vector<double> _x;
     std::vector<double> _f_x;
 
-    int _deg_k;
-    int _deg_l;
+    int _deg_k{};
+    int _deg_l{};
 
     std::vector<double> _calc_coefs();
 public:

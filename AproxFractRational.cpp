@@ -72,8 +72,8 @@ std::vector<double> AproxFractRational::_calc_coefs() {
         }
         vec[i][0] = -1;
     }
-    m = make_identity_matrix(m.concatenation(vec));
 
+    m = make_identity_matrix(m.concatenation(vec));
     auto retv_vec = new double[m.count_col()];
     m.get_col(m.count_col() - 1, retv_vec);
 
